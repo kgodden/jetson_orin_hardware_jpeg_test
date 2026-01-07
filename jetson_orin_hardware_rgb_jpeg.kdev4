@@ -1,0 +1,3 @@
+[Project]
+Name=jetson_orin_hardware_rgb_jpeg
+Manager=KDevCMakeManager
