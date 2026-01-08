@@ -29,9 +29,11 @@ The fastest and simplest mechanism I could find was to use the SIMD optimised li
 ## The Code
 
 **nvjpeg_rgb24_yuv_jpeg.cpp** - Code to JPEG the image using the Hardware JPEG Encoder block.
+
 **nvjpeg_test.cpp** - Code to run the Hardware Encoder tests.
 
 **libjpeg-turbo_jpeg.cpp** - Code to encode an image using libjpeg-turbo.
+
 **jpeg-turbo_test.cpp** - Code to run the libjpeg-turbo Encoder tests.
 
 # Building and Running the Tests
