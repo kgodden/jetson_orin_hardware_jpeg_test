@@ -1,0 +1,48 @@
+# =========================
+# Build artifacts
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+*.o
+*.obj
+*.so
+*.a
+*.d
+*.out
+*.exe
+
+# =========================
+# Jetson / GPU temporary files
+# =========================
+*.nvbuf
+*.bin    # if you generate intermediate GPU buffers
+*.raw    # raw image dumps
+*.tmp
+
+# =========================
+# IDE / editor
+# =========================
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# JetBrains / CLion
+.idea/
+*.iml
+*.iws
+out/
+
+# VSCode
+.vscode/
+
+# =========================
+# Optional: CUDA / NVJPEG
+# =========================
+*.ptx
+*.cubin
+*.nvcc
