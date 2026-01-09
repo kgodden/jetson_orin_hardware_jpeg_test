@@ -79,7 +79,7 @@ cd build
 
 In both cases you can specify the width and height of the image and the number of iterations as arguments, if you leave these args out it defaults to 5328x3040 and 20 iterations.
 
-Each will attempt to encode a test image 20 times and output the average time to encode an image, the tests also save the final image to disk for inspection.
+Each will attempt to encode a test image multiple times and output the average time to encode an image, the tests also save the final image to disk for inspection.
 
 ## Initial results on Orin AGX
 
