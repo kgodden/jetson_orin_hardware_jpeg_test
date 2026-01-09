@@ -85,6 +85,8 @@ Each will attempt to encode a test image 20 times and output the average time to
 
 Ecoding the 5328x3040 JPEG images from RGB24 using the hardware encoder is about 30% faster than using libjpeg-turbo, which isn't mind blowing.... However it does use about 50% less CPU time when encoding which might be useful if your system is already CPU pressured. For smaller images like HD images the times are about the same.
 
+<img width="607" height="157" alt="image" src="https://github.com/user-attachments/assets/df9e7c83-b75f-4172-9b86-de5b5619bbaf" />
+
 I will continuie to investiage if all of the colour conversion and JPEG encoding can be achieved in hardare without having to copy the image data back and forth.
 
 
