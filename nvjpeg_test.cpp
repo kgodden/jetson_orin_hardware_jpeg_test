@@ -5,10 +5,27 @@
 
 extern std::tuple<uint8_t*, size_t> encode_rgb24_to_jpeg_yuv(uint8_t* rgb_data, int width, int height, int quality = 90);
 
+//
+// Call like: nvjpeg_test <width> <height> <iterations>
+//
+// Defaults to 5328x3040, 20 iterations
+//
 int main(int argc, char **argv) {
 
     int width = 5328;
     int height = 3040;
+    int iterations = 20;
+
+    if (argc > 2) {
+        width = std::stoi(argv[1]);
+        height = std::stoi(argv[2]);
+    }
+
+    if (argc > 3) {
+        iterations  = std::stoi(argv[3]);
+    }
+
+    std::cout << "Image size: " << width << "x" << height << ", Iterations: " << iterations << std::endl;
 
     // Allocate rgb24 image (8 + 8 + 8)
     // stride is the same as the width
@@ -19,15 +36,13 @@ int main(int argc, char **argv) {
      for (int i = 0; i != width; i++) {
             *(rgb24_image + (j * width + i) * 3) = i * j;
             *(rgb24_image + (j * width + i) * 3 + 1) = i;
-            *(rgb24_image + (j * width + i) * 3 + 2) = j;
+            *(rgb24_image + (j * width + i) * 3 + 2) = i * j;
      }
     }
 
     std::cout << "Start" << std::endl;
 
     auto start = std::chrono::steady_clock::now();
-
-    int iterations = 20;
 
     uint8_t* jpeg_image;
     size_t out_size;
@@ -49,7 +64,7 @@ int main(int argc, char **argv) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    std::cout << "That took (each) " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() / iterations << "ms" << std::endl;
+    std::cout << "Average encode time " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() / iterations << "ms" << std::endl;
 
     delete [] rgb24_image;
 

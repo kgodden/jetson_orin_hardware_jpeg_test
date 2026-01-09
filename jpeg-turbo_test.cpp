@@ -6,10 +6,27 @@
 extern unsigned long turbo_encode_jpeg_to_memory(unsigned char* image, int width, int height, int quality,
                             const char* comment, unsigned char** jpegBuf);
 
+//
+// Call like: libjpeg-turbo_test <width> <height> <iterations>
+//
+// Defaults to 5328x3040, 20 iterations
+//
 int main(int argc, char **argv) {
 
     int width = 5328;
     int height = 3040;
+    int iterations = 20;
+
+    if (argc > 2) {
+        width = std::stoi(argv[1]);
+        height = std::stoi(argv[2]);
+    }
+
+    if (argc > 3) {
+        iterations  = std::stoi(argv[3]);
+    }
+
+    std::cout << "Image size: " << width << "x" << height << ", Iterations: " << iterations << std::endl;
 
     // Allocate rgb24 image (8 + 8 + 8)
     // stride is the same as the width
@@ -24,7 +41,6 @@ int main(int argc, char **argv) {
      }
     }
 
-    int iterations = 20;
 
     auto blstart = std::chrono::steady_clock::now();
 
