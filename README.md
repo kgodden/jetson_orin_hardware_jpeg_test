@@ -23,7 +23,7 @@ To get the Hardware JPEG engine to compress an rgb24 image to/from memory we hav
 - Deallocate the NvBuffer
 
 ## The Tests
-Each test creates an rbg24 image in memory of 5328x3040 pixels, the code then encodes this image to jpeg 20 times and measures how long it takes to do this, it also saves the last image to disk.  When running the hardware encoder test you can double check that the hardware encoders are beng used by running the Jetson Power GUI and checking the values for **nvjpg0** and **nvjpg1**.
+Each test creates an rbg24 image in memory, the code then encodes this image to jpeg multiple times and measures how long it takes to do this, it also saves the last image to disk.  When running the hardware encoder test you can double check that the hardware encoders are beng used by running the Jetson Power GUI and checking the values for **nvjpg0** and **nvjpg1**.
 
 <img width="711" height="871" alt="image" src="https://github.com/user-attachments/assets/3aafa648-2a9c-4253-834c-2a109b5688f4" />
 
@@ -67,15 +67,17 @@ To run NVJpeg test:
 
 ```bash
 cd build
-./nvjpeg_test
+./nvjpeg_test 5328 3040 100
 ```
 
 To run libjpeg-turbo test:
 
 ```bash
 cd build
-./jpeg_turbo_test
+./jpeg_turbo_test 5328 3040 100
 ```
+
+In both cases you can specify the width and height of the image and the number of iterations as arguments, if you leave these args out it defaults to 5328x3040 and 20 iterations.
 
 Each will attempt to encode a test image 20 times and output the average time to encode an image, the tests also save the final image to disk for inspection.
 
