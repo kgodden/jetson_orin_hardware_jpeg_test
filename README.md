@@ -21,10 +21,17 @@ To get the Hardware JPEG engine to compress an rgb24 image to/from memory we hav
 - Create a NvJPEGEncoder and call encodeFromBuffer() to encode into our output buffer.
 - Deallocate the NvBuffer
 
+## The Tests
+Each test creates an rbg24 image in memory of 5328x3040 pixels, the code then encodes this image to jpeg 20 times and times how long it takes to do this, it also saves the last image to disk.  When running the hardware encoder test you can double check that the hardware encoders are beng used by running the Jetson Power GUI and checking the values for **nvjpg0** and **nvjpg1**.
+
+<img width="711" height="871" alt="image" src="https://github.com/user-attachments/assets/3aafa648-2a9c-4253-834c-2a109b5688f4" />
+
 ## Converting from RGB to YUV
-The Jetson Orin has the means to convert image formats in hardware via the VIC including converting from RGBA to YU420, however it seems that the JPEG Encoder can't directly access the VIC's output in it's hardware memory and YUV image must be copied back to host memory before passing it to the JPEG encoder block, the overhead of copying the data back and forth is high - I tested this and the overall encoding speeds were very slow, slower than using the CPU for JPEG encoding.
+The Jetson Orin has the means to convert image formats in hardware including converting from RGBA to YU420, however it seems that the JPEG Encoder can't directly access the output in its hardware memory and the YUV image must be copied back to host memory before passing it to the JPEG encoder block, the overhead of copying the data back and forth is high - I tested this and the overall encoding speeds were very slow, slower than using the CPU for JPEG encoding.  I also tried using CUDA to convert the image from rgb24 to YUC420 using the GPU, but this seemed to have the same problem using the low-levem multimedia API, it seemed that the output of the CUDO GPU processing was not directly accessable to the JPEG encoder and had to be copied back to host memory first before being passed to the encoder.
 
 The fastest and simplest mechanism I could find was to use the SIMD optimised library libyuv to convert from RGB24 to YU420 using the CPU.
+
+I will continue look into other more efficient methods of doing the the colour conversion and JEPG encoding all in hardware without repated copies in the future.
 
 ## The Code
 
@@ -73,7 +80,10 @@ Each will attempt to encode a test image 20 times and output the average time to
 
 ## Initial results on Orin AGX
 
-Ecoding the JPEG images from RGB24 using the hardware encoder is about 30% faster than using libjpeg-turbo, which isn't much to write home about.... However it does use about 50% less CPU time when encoding.  More tests and analysis to follow...
+Ecoding the JPEG images from RGB24 using the hardware encoder is about 30% faster than using libjpeg-turbo, which isn't mind blowing.... However it does use about 50% less CPU time when encoding which might be useful if your system is already CPU pressured.  More tests and analysis to follow...
+
+I will continuie to investiage if all of the colour conversion and JPEG encoding can be achieved in hardare without having to copy the image data back and forth.
+
 
 
 
