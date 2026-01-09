@@ -6,6 +6,8 @@ An important thing to note about the Nvidia Hardware JPEG block is that it only 
 
 On your Jetson you should find an Nvidia sample of encoding a JPEG image at /usr/src/jetson_multimedia_api/samples/05_jpeg_encode, this reads a YUV image from disk and converts it which is not what I needed (installed as part of ther jetpack I think).
 
+<img width="1040" height="432" alt="image" src="https://github.com/user-attachments/assets/0e5a303d-d460-48fa-b3dd-512d7b8eaa34" />
+
 ## Aims:
 - Encode a packed rgb24 (R8, G8, B8) image to JPEG from Host Memory
 - Encode the image back to Host Memory as JPEG
